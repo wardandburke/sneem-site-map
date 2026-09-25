@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNEEM Site Map</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: clamp(12px, 3vw, 24px);
+      font-family: Arial, sans-serif;
+      background: #f3f5f7;
+      color: #202428;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      color: #1d2d3d;
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .map-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .map-zone-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: none;
+      background: #fff;
+      border: 1px solid #dfe6eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .zone-map-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .map-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      width: 100%;
+      max-width: none;
+      align-items: stretch;
+    }
+
+    .map-action-btn {
+      background: #0076a3;
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+      min-height: 46px;
+    }
+
+    .map-action-btn:hover,
+    .map-action-btn:focus-visible {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .map-action-btn.is-active {
+      background: #ac1f2d;
+    }
+
+    .map-action-btn[data-key="sneem-rowing-club"] {
+      background: #7b2cbf;
+    }
+
+    /* Hotspot styling */
+    .hotspot {
+      position: absolute;
+      transform: translate(-45%, -43%);
+      background: #ffcc00;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1;
+      touch-action: manipulation;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+      z-index: 2;
+    }
+
+    .groundwater-button {
+      background: #0076a3;
+      color: #ffffff;
+    }
+
+    .rowing-club-button {
+      background: #7b2cbf;
+      color: #ffffff;
+    }
+
+    .shoreline-button {
+      background-image: url('shoreline.png');
+      top: 50%;
+      left: 70%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .filtration-button {
+      background-image: url('filteration.png');
+      top: 46%;
+      left: 62%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .one-way-system-button {
+      background: #3f9958;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .hotspot:hover,
+    .hotspot:focus-visible {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    .hotspot:focus-visible,
+    .map-action-btn:focus-visible,
+    .info-panel button:focus-visible {
+      outline: 3px solid #0076a3;
+      outline-offset: 3px;
+    }
+
+    .info-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .info-panel {
+      background: rgba(255, 255, 255, 0.96);
+      border-left: 5px solid #ac1f2d;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+      border-radius: 10px;
+      padding: 14px 16px 12px;
+      font-size: 0.92rem;
+      min-height: 150px;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .info-panel.hidden {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
+    }
+
+    .info-panel h2 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .info-panel p {
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+
+    .info-panel button {
+      padding: 8px 14px;
+      border: 0;
+      border-radius: 4px;
+      background: #ac1f2d;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .additional-info,
+    .delivery-info {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #d7dfe6;
+      border-left: 5px solid #ac1f2d;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      padding: 12px 15px 8px;
+      align-self: start;
+    }
+
+    .delivery-info {
+      margin-top: 0;
+    }
+
+    .additional-info summary,
+    .delivery-info summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1d2d3d;
+      padding: 4px 0;
+    }
+
+    .additional-info summary::-webkit-details-marker,
+    .delivery-info summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .additional-info .info-list,
+    .delivery-info .info-list {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 0;
+    }
+
+    .additional-info .info-list li,
+    .delivery-info .info-list li {
+      padding: 10px 0;
+      border-top: 1px solid #e5e7eb;
+      line-height: 1.5;
+      color: #2f3b46;
+    }
+
+    .additional-info .info-list strong,
+    .delivery-info .info-list strong {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #536575;
+      margin-bottom: 3px;
+    }
+
+    .map-boundary {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #0076a3;
+      background: rgba(0, 118, 163, 0.2);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .groundwater-boundary {
+      top: 46%;
+      left: 52%;
+      width:4%;
+      height: 16%;
+      font-size: 12px;
+      rotate: 30deg;
+    }
+
+    .siteOffice-Welfare-boundary {
+      top: 41%;
+      left: 44.5%;
+      width: 8%;
+      height: 13%;
+      font-size: 12px;
+      rotate: 32deg;
+    }
+
+    .work-site-boundary {
+      top: 10%;
+      left: 48%;
+      width: 24%;
+      height: 34.77%;
+      font-size: 12px;
+      background: rgba(235, 97, 17, 0.35);
+      border: 0;
+      clip-path: polygon(67.65% 22.16%, 100% 41.75%, 79.90% 59.28%, 81.86% 79.90%, 76.00% 100%, 49.51% 63.40%, 6.37% 37.11%, 0% 20.62%, 12.75% 0%);
+    }
+
+    .map-boundary:hover,
+    .map-boundary:focus-visible {
+      background: rgba(235, 195, 17, 0.65);
+      border-color: #b48d0a;
+    }
+
+    .map-boundary:focus-visible {
+      outline: 3px solid #ffcc00;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .map-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .info-column {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .map-controls {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .map-action-btn {
+        font-size: 0.78rem;
+        padding: 8px 10px;
+        min-height: 40px;
+        line-height: 1.2;
+      }
+
+      .hotspot {
+        width: 17.5px;
+        height: 17.5px;
+        font-size: 10px;
+      }
+
+      .shoreline-button {
+        width: 17.5px;
+        height: 17.5px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>SNEEM Site Map</h1>
+
+    <div class="map-layout">
+      <div class="map-area">
+        <div class="map-zone-container">
+          <img
+            src="SNEEM%20Site%20Plan%20update.png"
+            alt="SNEEM site plan"
+            class="zone-map-img"
+          >
+
+          <a href="GroundwaterManagement.html" class="map-boundary groundwater-boundary" aria-label="Open groundwater management details">Groundwater Management</a>
+          <a href="siteOffice-Welfare.html" class="map-boundary siteOffice-Welfare-boundary" aria-label="Open Site Office and Welfare details">Site Office &amp; Welfare</a>
+          <a href="worksSite.html" class="map-boundary work-site-boundary" aria-label="Open Works Site details">Works Site</a>
+
+          <button class="hotspot one-way-system-button" type="button" style="top: 21%; left: 48%;" aria-label="Show one-way system information" data-key="one-way-system" onclick="showInfo('one-way-system')">!</button>
+          <button class="hotspot filtration-button" type="button" style="top: 46%; left: 62%;" aria-label="Show filtration information" data-key="filtration" onclick="showInfo('filtration')"></button>
+          <button class="hotspot shoreline-button" type="button" style="top: 35%; left: 70%;" aria-label="Show shoreline information" data-key="shoreline" onclick="showInfo('shoreline')"></button>
+          <button class="hotspot rowing-club-button" type="button" style="top: 30%; left: 45%;" aria-label="Show Sneem Rowing Club information" data-key="sneem-rowing-club" onclick="showInfo('sneem-rowing-club')">R</button>
+        </div>
+
+        <div class="map-controls" aria-label="Map control buttons">
+          <button type="button" class="map-action-btn" data-key="one-way-system" onclick="showInfo('one-way-system')">One Way System</button>
+          <button type="button" class="map-action-btn" data-key="filtration" onclick="showInfo('filtration')">Filtration</button>
+          <button type="button" class="map-action-btn" data-key="shoreline" onclick="showInfo('shoreline')">Shoreline</button>
+          <button type="button" class="map-action-btn" data-key="sneem-rowing-club" onclick="showInfo('sneem-rowing-club')">Rowing Club</button>
+        </div>
+      </div>
+
+      <aside class="info-column" aria-label="Site information panel">
+        <section id="info-panel" class="info-panel hidden" aria-live="polite">
+          <h2 id="info-title">Details</h2>
+          <p id="info-content">Select an icon or button to see area details.</p>
+          <button type="button" onclick="closeInfo()">Close</button>
+        </section>
+
+        <aside class="additional-info" aria-label="Additional site information">
+          <details open>
+            <summary>Additional Information</summary>
+            <ul class="info-list">
+              <li>
+                <strong>Supervisor</strong>
+                Gerry McHale<br>
+                Mark O'Donoghue
+              </li>
+              <li>
+                <strong>Emergency Contact</strong>
+                999 or 112<br>
+                <strong>First Aid Responder</strong>
+                Mark O'Donoghue
+              </li>
+              <li>
+                <strong>Job Location</strong>
+                Sneem, V93 N520
+              </li>
+            </ul>
+          </details>
+        </aside>
+
+        <aside class="delivery-info" aria-label="Delivery driver information">
+          <details open>
+            <summary>Delivery Information</summary>
+            <ul class="info-list">
+              <li>Please sign in to the site office on arrival.</li>
+              <li>Any unauthorised areas must be accompanied by a site operative.</li>
+              <li>Please be aware of the one-way traffic system in place.</li>
+            </ul>
+          </details>
+        </aside>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const infoData = {
+      'one-way-system': {
+        title: 'One Way System',
+        content: 'The road is shared access with Sneem Rowing Club and all operatives and visitors must use a one-way system.'
+      },
+      'shoreline': {
+        title: 'Shoreline',
+        content: 'This shore is very shallow and highly tidal, meaning the depth changes dramatically throughout the day.'
+      },
+      'filtration': {
+        title: 'Filtration',
+        content: 'Water will be pumped to keep work areas dry, stable, and safe.'
+      },
+      'sneem-rowing-club': {
+        title: 'Sneem Rowing Club',
+        content: 'Sneem Rowing Club is located in this area. Follow the site access arrangements and remain aware of nearby works and water-related hazards.'
+      }
+    };
+
+    function showInfo(key) {
+      const panel = document.getElementById('info-panel');
+      const title = document.getElementById('info-title');
+      const content = document.getElementById('info-content');
+      const buttons = document.querySelectorAll('.map-action-btn, .hotspot');
+
+      if (infoData[key]) {
+        title.textContent = infoData[key].title;
+        content.textContent = infoData[key].content;
+
+        buttons.forEach((button) => {
+          const match = button.dataset.key === key;
+          button.classList.toggle('is-active', match);
+        });
+
+        panel.classList.remove('hidden');
+      }
+    }
+
+    function closeInfo() {
+      const panel = document.getElementById('info-panel');
+      panel.classList.add('hidden');
+
+      document.querySelectorAll('.map-action-btn, .hotspot').forEach((button) => {
+        button.classList.remove('is-active');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groundwater Management</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #f3f5f7;
+      color: #202428;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      background: #ffffff;
+      padding: 24px;
+      border-left: 5px solid #ac1f2d;
+    }
+
+    h1 {
+      color: #ffffff;
+      padding: 10px;
+      background-color: #ac1f2d;
+
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px 0;
+    }
+
+    a {
+      color: #0076a3;
+      font-weight: bold;
+    }
+
+
+    .carousel {
+      position: relative;
+      margin: 20px 0;
+      padding: 0 48px;
+      background: #ffffff;
+    }
+
+    .carousel-image {
+      width: 100%;
+      height: 420px;
+      object-fit: contain;
+      margin: 0;
+      display: none;
+    }
+
+    .carousel-image.active {
+      display: block;
+    }
+
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 52px;
+      border: 0;
+      background: #ac1f2d;
+      color: #ffffff;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    .carousel-control:hover,
+    .carousel-control:focus-visible {
+      background: #0076a3;
+    }
+
+    .carousel-control.previous {
+      left: 0;
+    }
+
+    .carousel-control.next {
+      right: 0;
+    }
+
+    .carousel-status {
+      margin: 10px 0 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Groundwater Management</h1>
+
+    <p>
+      Groundwater management controls apply in this area.
+    </p>
+
+    <h2>Required Controls</h2>
+
+    <ul>
+      <li>Follow the site environmental controls.</li>
+      <li>Keep drainage routes clear.</li>
+      <li>Follow all monitoring arrangements.</li>
+      <li>Report unusual water levels or contamination immediately.</li>
+    </ul>
+
+    <h2>Groundwater Information</h2>
+
+    <p>
+      Water pumped from excavations will be put through a Skye pump and discharged to the local drainage system. The Skye pump is a high capacity pump that can handle large volumes of water and is designed to remove sediment and debris from the water before it is discharged.
+    </p>
+
+    <div class="carousel" aria-label="Groundwater management images">
+      <button class="carousel-control previous" type="button" aria-label="Previous image">&#10094;</button>
+      <img class="carousel-image active" src="WhatsApp Image 2026-09-16 at 14.12.05.jpeg" alt="Groundwater management information">
+      <img class="carousel-image" src="skyePump.png" alt="Skye pump">
+      <button class="carousel-control next" type="button" aria-label="Next image">&#10095;</button>
+      <p class="carousel-status" aria-live="polite">Image 1 of 2</p>
+    </div>
+
+    <a class="back-link" href="hotspot-map.html">Back to site map</a>
+  </main>
+
+  <script>
+    const carouselImages = document.querySelectorAll('.carousel-image');
+    const carouselStatus = document.querySelector('.carousel-status');
+    let currentImage = 0;
+
+    function showImage(imageIndex) {
+      currentImage = (imageIndex + carouselImages.length) % carouselImages.length;
+      carouselImages.forEach((image, index) => {
+        image.classList.toggle('active', index === currentImage);
+        image.setAttribute('aria-hidden', index === currentImage ? 'false' : 'true');
+      });
+      carouselStatus.textContent = `Image ${currentImage + 1} of ${carouselImages.length}`;
+    }
+
+    document.querySelector('.carousel-control.previous').addEventListener('click', () => {
+      showImage(currentImage - 1);
+    });
+
+    document.querySelector('.carousel-control.next').addEventListener('click', () => {
+      showImage(currentImage + 1);
+    });
+  </script>
+</body>
+</html>

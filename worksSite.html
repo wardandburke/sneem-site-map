@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Works Site</title>
+</head>
+<body>
+    <div class="page-layout">
+    <main> 
+        <h1>Works Site</h1>
+          <style>
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f3f5f7;
+            color: #202428;
+        }
+
+        main {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 24px;
+            border-left: 5px solid #ac1f2d;
+        }
+
+        .page-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 800px) minmax(220px, 280px);
+            gap: 24px;
+            max-width: 1120px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .plant-info {
+            margin-top: 21px;
+            padding: 16px;
+            background: #ffffff;
+            border-top: 5px solid #ac1f2d;
+        }
+
+        .plant-info h2 {
+            margin: 0 0 16px;
+            color: #ac1f2d;
+            font-size: 1.2rem;
+        }
+
+        .plant-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .plant-list li {
+            margin-bottom: 14px;
+        }
+
+        .plant-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 760px) {
+            .page-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        h1 {
+            color: #ffffff;
+            background-color: #ac1f2d;
+            padding: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+        }
+
+        a {
+            color: #0076a3;
+            font-weight: bold;
+        }
+
+        .ppe-container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ppe-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0;
+}
+
+.image-button-container {
+    position: relative;
+    width: 100%;
+}
+
+.image-button-container > img {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.hazard-button {
+    position: absolute;
+    top: 38%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.hazard-button img {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    object-fit: contain;
+}
+
+.hazard-button:hover,
+.hazard-button:focus-visible {
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.info-panel {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-left: 5px solid #d62828;
+}
+
+.info-panel h2 {
+    margin: 0 0 8px;
+}
+
+.info-panel p {
+    margin: 0 0 12px;
+}
+
+.info-panel button {
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 4px;
+    background: #0076a3;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.image-button-container {
+    position: relative;
+    width: 100%;
+}
+
+.image-button-container > img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.safe-pass-button {
+    position: absolute;
+    top: 48%;
+    left: 12.5%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.safe-pass-button img {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+
+.safe-pass-button:hover,
+.safe-pass-button:focus-visible {
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.image-button-container {
+    position: relative;
+    width: 100%;
+}
+
+.image-button-container > img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.notice-button {
+    position: absolute;
+    top: 48%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.notice-button img {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+
+.notice-button:hover,
+.notice-button:focus-visible {
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.carousel {
+    position: relative;
+    box-sizing: border-box;
+    height: 450px;
+    margin: 20px 0;
+    padding: 0 48px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.carousel-image {
+    position: absolute;
+    top: 0;
+    left: 48px;
+    width: calc(100% - 96px);
+    height: 420px;
+    object-fit: contain;
+    margin: 0;
+    display: none;
+}
+
+.carousel-image.active {
+    display: block;
+}
+
+.carousel-annotations {
+    position: absolute;
+    inset: 0;
+    display: none;
+}
+
+.carousel-annotations.active {
+    display: block;
+}
+
+.road-info-annotation {
+    position: absolute;
+    inset: 0;
+    display: none;
+}
+
+.road-info-annotation.active {
+    display: block;
+}
+
+.road-info-button {
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 3px solid #000000;
+    background: #ffc000;
+    color: #000000;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.road-info-button:hover,
+.road-info-button:focus-visible {
+    background: #ffc000;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 52px;
+    border: 0;
+    background: #ac1f2d;
+    color: #ffffff;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.carousel-control:hover,
+.carousel-control:focus-visible {
+    background: #0076a3;
+}
+
+.carousel-control.previous {
+    left: 0;
+}
+
+.carousel-control.next {
+    right: 0;
+}
+
+.carousel-status {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+    </style>
+
+        <p>
+            <b class="term">Hazard Level: 3</b>
+            The Works Site is located in the designated area on site. 
+        </p>
+
+        <h2>Be aware of the following hazards:</h2>
+        <ul>
+            <li>Deep water</li>
+            <li>Moving plant and machinery</li>
+            <li>Working from heights</li>
+            <li>Safety signage and barriers</li>
+        </ul>
+
+        <div class="carousel" aria-label="Works site images">
+            <button class="carousel-control previous" type="button" aria-label="Previous image">&#10094;</button>
+            <img class="carousel-image active" src="WhatsApp Image 2026-09-16 at 14.12.05 (2).jpeg" alt="Works Site Facilities">
+            <img class="carousel-image" src="WhatsApp Image 2026-09-16 at 11.34.40 (2).jpeg" alt="Works site image 2">
+            <img class="carousel-image" src="WhatsApp Image 2026-09-16 at 11.34.39.jpeg" alt="Works site image 3">
+            <img class="carousel-image" src="WhatsApp Image 2026-09-16 at 14.12.05 (1).jpeg" alt="Works site image 4">
+            <img class="carousel-image" src="WhatsApp Image 2026-09-16 at 11.34.41 (6).jpeg" alt="Works site image 5">
+
+            <div class="carousel-annotations active">
+                <button
+                    class="hazard-button"
+                    type="button"
+                    aria-label="Show hazard information"
+                    onclick="showInfo()"
+                >
+                    <img src="hazard.png" alt="" />
+                </button>
+
+                <button
+                    class="safe-pass-button"
+                    type="button"
+                    aria-label="Show Safe Pass information"
+                    onclick="showSafePassInfo()"
+                >
+                    <img src="Sym_SafePass.png" alt="" />
+                </button>
+
+                <button
+                    class="notice-button"
+                    type="button"
+                    aria-label="Show blueNotice information"
+                    onclick="showblueNoticeInfo('Life jackets and ring buoys are stationed near deep water areas.')"
+                >
+                    <img src="BlueNotice.png" alt="" />
+                </button>
+            </div>
+
+            <div class="road-info-annotation">
+                <button
+                    class="road-info-button"
+                    type="button"
+                    aria-label="Show shared road information"
+                    onclick="showRoadInfo()"
+                >!</button>
+            </div>
+
+            <button class="carousel-control next" type="button" aria-label="Next image">&#10095;</button>
+            <p class="carousel-status" aria-live="polite">Image 1 of 5</p>
+        </div>
+
+        <section id="info-panel" class="info-panel hidden" aria-live="polite">
+            <h2 id="info-title">Information</h2>
+            <p id="info-content"></p>
+            <button type="button" onclick="closeInfo()">Close</button>
+        </section>
+
+        <a class="back-link" href="hotspot-map.html">Back to site map</a>
+
+
+        <h3> <b>ATTENTION!: </b></h3>
+        <p> Personal Protective Equipment (PPE) Required at all times</p>
+
+       <div class="ppe-container">
+            <img src="PPEHardhat.png" alt="PPE Hard Hat">
+            <img src="PPEGoggles.png" alt="PPE Goggles">
+            <img src="BootsSym.png" alt="PPE Boots">
+            <img src="PPEHearing.png" alt="PPE Ear Defenders">
+            <img src="VestSym.png" alt="PPE High Vis Vest">
+        </div>
+    
+    </main>
+
+    <aside class="plant-info">
+        <h2>Plant &amp; Machinery</h2>
+        <ul class="plant-list">
+            <li><strong>Kobelco SK140:</strong> Keep personnel outside the excavator slew and bucket operating zone.</li>
+            <li><strong>CAT 335:</strong> Keep clear of the excavator slew radius, boom, and bucket working area.</li>
+            <li><strong>Kubota KX060-5:</strong> Keep clear of the compact excavator slew and bucket operating area.</li>
+            <li><strong>JCB 6 tonne dumper:</strong> Keep clear of the travel route, tipping area, and reversing blind spots.</li>
+            <li><strong>Liebherr 1100 crawler crane:</strong> Keep clear of the crane slew radius, lifting area, and suspended-load path.</li>
+        </ul>
+    </aside>
+    </div>
+<script>
+    const carouselImages = document.querySelectorAll('.carousel-image');
+    const carouselStatus = document.querySelector('.carousel-status');
+    const carouselAnnotations = document.querySelector('.carousel-annotations');
+    const roadInfoAnnotation = document.querySelector('.road-info-annotation');
+    let currentImage = 0;
+
+    function showImage(imageIndex) {
+        currentImage = (imageIndex + carouselImages.length) % carouselImages.length;
+        carouselImages.forEach((image, index) => {
+            image.classList.toggle('active', index === currentImage);
+            image.setAttribute('aria-hidden', index === currentImage ? 'false' : 'true');
+        });
+        carouselAnnotations.classList.toggle('active', currentImage === 0);
+        roadInfoAnnotation.classList.toggle('active', currentImage === 2);
+        carouselStatus.textContent = `Image ${currentImage + 1} of ${carouselImages.length}`;
+    }
+
+    document.querySelector('.carousel-control.previous').addEventListener('click', () => {
+        showImage(currentImage - 1);
+    });
+
+    document.querySelector('.carousel-control.next').addEventListener('click', () => {
+        showImage(currentImage + 1);
+    });
+
+    function showInfo() {
+        showPanel(
+            'Hazard Information',
+            'Stay outside of the excavator exclusion zone.'
+        );
+    }
+
+    function showSafePassInfo() {
+        showPanel(
+            'Safe Pass Information',
+            'You must be certified to operate this machinery.'
+        );
+    }
+
+    function showRoadInfo() {
+        showPanel(
+            'Road Information',
+            'This road is shared with Sneem Rowing Club'
+        );
+    }
+
+    function closeInfo() {
+        document.getElementById('info-panel').classList.add('hidden');
+    }
+
+    function showblueNoticeInfo(message) {
+        showPanel(
+            'Attention!', message);
+    }
+
+    function showPanel(title, content) {
+        document.getElementById('info-title').textContent = title;
+        document.getElementById('info-content').textContent = content;
+        document.getElementById('info-panel').classList.remove('hidden');
+    }
+</script>
+</body>
+

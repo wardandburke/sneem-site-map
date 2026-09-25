@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Office Welfare</title>
+
+</head>
+<body>  
+      <style>
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f3f5f7;
+            color: #202428;
+        }
+
+        main {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 24px;
+            border-left: 5px solid #ac1f2d;
+            
+        }
+
+        h1 {
+            color: #ffffff;
+            background-color: #ac1f2d;
+            padding: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+        }
+
+        a {
+            color: #0076a3;
+            font-weight: bold;
+        }
+
+        .page-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 800px) minmax(220px, 280px);
+            gap: 24px;
+            max-width: 1120px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .additional-info {
+            background: #ffffff;
+            border-top: 5px solid #ac1f2d;
+            margin-top: 21px;
+        }
+
+        .additional-info-content {
+            padding: 16px;
+        }
+
+        .additional-info-content h2 {
+            margin: 0 0 16px;
+            color: #ac1f2d;
+            font-size: 1.2rem;
+        }
+
+        .additional-info-content dt {
+            margin-top: 14px;
+            color: #ac1f2d;
+            font-weight: bold;
+        }
+
+        .additional-info-content dd {
+            margin: 4px 0 0;
+        }
+
+        @media (max-width: 760px) {
+            .page-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .carousel {
+            position: relative;
+            box-sizing: border-box;
+            height: 450px;
+            margin: 20px 0;
+            padding: 0 48px;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 48px;
+            width: calc(100% - 96px);
+            height: 420px;
+            object-fit: contain;
+            margin: 0;
+            display: none;
+        }
+
+        .carousel-image.active {
+            display: block;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 52px;
+            border: 0;
+            background: #ac1f2d;
+            color: #ffffff;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        .carousel-control:hover,
+        .carousel-control:focus-visible {
+            background: #0076a3;
+        }
+
+        .carousel-control.previous {
+            left: 0;
+        }
+
+        .carousel-control.next {
+            right: 0;
+        }
+
+        .carousel-status {
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            left: 0;
+            margin: 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <div class="page-layout">
+    <main>
+        <h1>Site Compound</h1>
+
+        <p>
+            The site office welfare facilities are located in the main site office building.
+        </p>
+
+        <h2>Facilities Available</h2>
+        <ul>
+            <li>Welfare Cabins</li>
+            <li>Site Office</li>
+            <li>Storage Compound</li>
+            <li>First aid station</li>
+            <li>Reverse parking only in this area</li>
+        </ul>
+
+        <div class="carousel" aria-label="Site office and welfare images">
+            <button class="carousel-control previous" type="button" aria-label="Previous image">&#10094;</button>
+            <img class="carousel-image active" src="sneem Site Office.jpg" alt="Sneem site office">
+            <img class="carousel-image" src="WhatsApp Image 2026-09-16 at 11.34.40 (9).jpeg" alt="Site office welfare area">
+            <img class="carousel-image" src="Sneem Site Welfare.png" alt="Site office welfare facilities">
+            <button class="carousel-control next" type="button" aria-label="Next image">&#10095;</button>
+            <p class="carousel-status" aria-live="polite">Image 1 of 3</p>
+        </div>
+        <a class="back-link" href="hotspot-map.html">Back to site map</a>
+    </main>
+
+    <aside class="additional-info">
+        <div class="additional-info-content">
+            <h2>Additional Information</h2>
+            <dl>
+                <dt>Project Description</dt>
+                <dd>Place holder for what it is</dd>
+
+                <dt>Address</dt>
+                <dd>Sneem Rowing Club, V93 N520</dd>
+
+                <dt>Defib</dt>
+                <dd>In the Site Welfare Cabin</dd>
+
+                <dt>First Aid kit</dt>
+                <dd>In the Site Welfare Cabin</dd>
+            </dl>
+        </div>
+    </aside>
+    </div>
+
+    <script>
+        const carouselImages = document.querySelectorAll('.carousel-image');
+        const carouselStatus = document.querySelector('.carousel-status');
+        let currentImage = 0;
+
+        function showImage(imageIndex) {
+            currentImage = (imageIndex + carouselImages.length) % carouselImages.length;
+            carouselImages.forEach((image, index) => {
+                image.classList.toggle('active', index === currentImage);
+                image.setAttribute('aria-hidden', index === currentImage ? 'false' : 'true');
+            });
+            carouselStatus.textContent = `Image ${currentImage + 1} of ${carouselImages.length}`;
+        }
+
+        document.querySelector('.carousel-control.previous').addEventListener('click', () => {
+            showImage(currentImage - 1);
+        });
+
+        document.querySelector('.carousel-control.next').addEventListener('click', () => {
+            showImage(currentImage + 1);
+        });
+    </script>
+    
+</body>
+</html>
+

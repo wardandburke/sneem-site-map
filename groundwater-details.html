@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groundwater Management</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #f3f5f7;
+      color: #202428;
+    }
+
+    main {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .detail-map-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .detail-map-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .sandbags-button {
+      position: absolute;
+      top: 42%;
+      left: 58%;
+      width: 42px;
+      height: 38px;
+      padding: 4px 0 0;
+      border: 0;
+      border-radius: 0;
+      background: #ffcc00;
+      color: #202428;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .sandbags-button:hover,
+    .sandbags-button:focus-visible {
+      background: #e0a900;
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+
+    .sandbags-button:focus-visible {
+      outline: 3px solid #0076a3;
+      outline-offset: 3px;
+    }
+
+    .info-panel {
+      margin-top: 18px;
+      padding: 16px;
+      background: #ffffff;
+      border-left: 5px solid #0076a3;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-panel h2 {
+      margin: 0 0 8px;
+    }
+
+    .info-panel p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: #0076a3;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Groundwater Management</h1>
+    <p>Select the warning marker on the image for sandbag information.</p>
+
+    <div class="detail-map-container">
+      <img
+        src="WhatsApp Image 2026-09-16 at 14.12.05.jpeg"
+        alt="SNEEM site plan showing the groundwater management area"
+        class="detail-map-img"
+      >
+    </div>
+
+    <section id="sandbags-info" class="info-panel hidden" aria-live="polite">
+      <h2>Groundwater Management - Sandbags</h2>
+      <p>Sandbags are provided for groundwater and water-control measures in this area. Keep them accessible and report any damage, movement, or signs of water ingress.</p>
+    </section>
+
+    <a class="back-link" href="hotspot-map.html">Back to site map</a>
+  </main>
+
+  <script>
+    function showSandbagInfo() {
+      const panel = document.getElementById('sandbags-info');
+      const button = document.querySelector('.sandbags-button');
+      const isHidden = panel.classList.toggle('hidden');
+      button.setAttribute('aria-expanded', String(!isHidden));
+    }
+  </script>
+</body>
+</html>
